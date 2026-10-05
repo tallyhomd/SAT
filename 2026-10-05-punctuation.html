@@ -1,1 +1,98 @@
-HTML quiz file as drafted
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAT Conventions — Punctuation — Oct 5, 2026</title>
+<style>
+  :root { --ink:#1c2430; --muted:#5c6778; --line:#d7dee6; --paper:#f6f4ef; --card:#fff; --accent:#1f4e79; --ok:#1b7f4e; --bad:#a33b32; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:17px/1.5 Georgia, "Iowan Old Style", serif; color:var(--ink); background:var(--paper); }
+  header { background:var(--accent); color:#fff; padding:22px 20px 18px; }
+  header h1 { margin:0 0 6px; font-size:1.45rem; font-weight:600; }
+  header p { margin:0; max-width:740px; color:#e7eef6; }
+  main { max-width:780px; margin:0 auto; padding:18px 16px 64px; }
+  .bar { display:flex; justify-content:space-between; gap:12px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin:14px 0 18px; position:sticky; top:8px; }
+  .timer { font-variant-numeric:tabular-nums; font-weight:700; color:var(--accent); }
+  .method { background:#fff; border-left:4px solid var(--accent); padding:12px 14px; margin-bottom:18px; }
+  .q { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 16px 8px; margin:0 0 14px; }
+  .q h2 { font-size:1rem; margin:0 0 8px; }
+  .blank { font-weight:700; }
+  label.choice { display:block; border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin:0 0 8px; cursor:pointer; }
+  label.choice:hover { border-color:var(--accent); }
+  label.choice input { margin-right:8px; }
+  button { background:var(--accent); color:#fff; border:0; border-radius:8px; padding:12px 18px; font:600 1rem/1 sans-serif; cursor:pointer; }
+  button.secondary { background:#fff; color:var(--accent); border:1px solid var(--accent); }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 18px; }
+  .score { font-size:1.25rem; font-weight:700; }
+  .explain { display:none; margin:8px 0 12px; padding:10px 12px; background:#f3f7fb; border-radius:8px; }
+  .q.right { border-color:var(--ok); }
+  .q.wrong { border-color:var(--bad); }
+  .tag { font:600 .78rem/1 sans-serif; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
+  footer { color:var(--muted); font-size:.9rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SAT Standard English Conventions</h1>
+  <p>Punctuation daily set. October 5, 2026. 10 questions. 12 minutes. Predict the punctuation before you look at the choices.</p>
+</header>
+<main>
+  <div class="bar"><div>Boundaries only. One legal join.</div><div class="timer" id="timer">12:00</div></div>
+  <div class="method"><strong>Method.</strong> Split at BLANK. A complete sentence has a subject, a verb, and a complete thought. Two completes need a period, a semicolon, or a comma plus FANBOYS (for, and, nor, but, or, yet, so). A colon only follows a complete sentence. However, therefore, and thus are not FANBOYS.</div>
+  <form id="quiz"></form>
+  <div class="actions"><button type="button" id="grade">Check answers</button><button type="button" class="secondary" id="reset">Reset</button></div>
+  <div id="result" hidden></div>
+  <footer>Practice set for Evan. Not an official College Board item.</footer>
+</main>
+<script>
+const questions = [
+  { skill:"Comma splice", stem:"The trail was closed BLANK hikers ignored the sign and kept going.", choices:[["closed, hikers","Comma splice. Two complete sentences cannot be joined by a comma alone."],["closed; hikers","Correct. Both sides are complete, so a semicolon is a legal join."],["closed but hikers","Missing the comma. FANBOYS needs a comma: closed, but hikers."],["closed: hikers","A colon would mean the second clause explains the first. Ignoring the sign does not explain the closure."]], answer:1 },
+  { skill:"Comma plus FANBOYS", stem:"The river rose overnight BLANK the bridge stayed open until noon.", choices:[["overnight but the","Two complete sentences joined by but need a comma before but."],["overnight, but the","Correct. Comma plus but joins two independent clauses."],["overnight; but the","Do not use a semicolon and a FANBOYS word together."],["overnight: but the","A colon does not take but, and this second clause is a contrast, not an explanation."]], answer:1 },
+  { skill:"However is not FANBOYS", stem:"The data were incomplete BLANK the pattern was already clear.", choices:[["incomplete, however, the","Still a comma splice. However is not a FANBOYS word."],["incomplete; however, the","Correct. Use a semicolon before however, then a comma after it."],["incomplete however the","Run-on. Two complete sentences with no legal join."],["incomplete, however the","Comma splice, and the comma after however is missing."]], answer:1 },
+  { skill:"Colon after a verb", stem:"The kit included BLANK rope, a lamp, and matches.", choices:[["included: rope","A colon cannot split a verb from its objects. The lead-in is not complete."],["included rope","Correct. No extra punctuation between the verb and the list."],["included; rope","A semicolon needs a complete sentence on each side. A list is not a sentence."],["included, rope,","Those commas break the list and do not fix the sentence."]], answer:1 },
+  { skill:"Colon after a complete sentence", stem:"She had one remaining task BLANK secure the samples before sunset.", choices:[["task secure","The explanation of the task needs a mark that introduces it."],["task, secure","A comma does not introduce an explanation here."],["task: secure","Correct. The first side is complete. The colon points to what the task is."],["task; secure","The words after the blank are not a complete sentence, so a semicolon is illegal."]], answer:2 },
+  { skill:"Nonessential which", stem:"The engine BLANK failed on the first test.", choices:[["engine which was rebuilt last spring failed","A which clause is extra information and needs commas on both sides."],["engine, which was rebuilt last spring, failed","Correct. The which clause can be deleted, so a pair of commas sets it off."],["engine, which was rebuilt last spring failed","Opens the aside but never closes it."],["engine which was rebuilt last spring, failed","The comma is in the wrong place and splits the subject from the verb."]], answer:1 },
+  { skill:"Essential that", stem:"The report BLANK changed the final vote.", choices:[["report, that the committee released, changed","Do not set off an essential that clause with commas."],["report that the committee released changed","Correct. Essential information stays attached, with no commas."],["report; that the committee released, changed","A semicolon would leave a fragment after it."],["report: that the committee released changed","A colon does not belong between a noun and the clause that identifies it."]], answer:1 },
+  { skill:"Introductory comma", stem:"After the storm BLANK the road reopened to traffic.", choices:[["storm the","An introductory phrase needs a comma before the main clause."],["storm, the","Correct. After the storm is an opener, not a complete sentence."],["storm; the","The left side is not complete, so a semicolon is illegal."],["storm: the","A colon must follow a complete sentence. After the storm is only a phrase."]], answer:1 },
+  { skill:"Subject and verb", stem:"The collection of rare maps BLANK stored in a climate-controlled vault.", choices:[["maps, is","Do not put a comma between the subject and its verb."],["maps is","Correct. The subject is collection. No comma, and the verb stays singular."],["maps; is","A semicolon cannot sit between a subject and its verb."],["maps: is","A colon cannot sit between a subject and its verb."]], answer:1 },
+  { skill:"Phrase, not a second sentence", stem:"The curator smiled BLANK arranging the new exhibit by color.", choices:[["smiled; arranging","The words after the blank are not a complete sentence."],["smiled, arranging","Correct. Arranging is an add-on phrase, so a comma attaches it."],["smiled. Arranging","A period would leave Arranging the new exhibit by color as a fragment."],["smiled: arranging","A colon is for a list or explanation. This phrase only adds how she worked."]], answer:1 }
+];
+const form = document.getElementById("quiz");
+questions.forEach((q, i) => {
+  const card = document.createElement("section");
+  card.className = "q";
+  card.id = "q" + i;
+  const choices = q.choices.map((c, j) => `<label class="choice"><input type="radio" name="q${i}" value="${j}"> ${c[0]}</label>`).join("");
+  card.innerHTML = `<div class="tag">Question ${i + 1} · ${q.skill}</div><h2>Which choice completes the text so that it conforms to the conventions of Standard English?</h2><p>${q.stem.replace("BLANK", "<span class=\"blank\">BLANK</span>")}</p>${choices}<div class="explain" id="ex${i}"></div>`;
+  form.appendChild(card);
+});
+let left = 12 * 60;
+const timer = document.getElementById("timer");
+const tick = setInterval(() => {
+  left -= 1;
+  if (left <= 0) { clearInterval(tick); timer.textContent = "0:00"; grade(); return; }
+  timer.textContent = Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0");
+}, 1000);
+function grade() {
+  clearInterval(tick);
+  let correct = 0;
+  questions.forEach((q, i) => {
+    const picked = document.querySelector(`input[name="q${i}"]:checked`);
+    const idx = picked ? Number(picked.value) : -1;
+    const ok = idx === q.answer;
+    if (ok) correct += 1;
+    document.getElementById("q" + i).classList.add(ok ? "right" : "wrong");
+    const ex = document.getElementById("ex" + i);
+    ex.style.display = "block";
+    ex.innerHTML = `<p><strong>${ok ? "Right" : "Miss"}.</strong> Answer ${String.fromCharCode(65 + q.answer)}.</p>` + q.choices.map((c, j) => `<p><strong>${String.fromCharCode(65 + j)}.</strong> ${j === q.answer ? "Correct. " : ""}${c[1]}</p>`).join("");
+  });
+  const box = document.getElementById("result");
+  box.hidden = false;
+  box.innerHTML = `<p class="score">${correct} / ${questions.length}</p><p>For each miss, write: two completes or not, which join you bought, and whether it was a comma splice, a colon after a verb, or however treated as FANBOYS.</p>`;
+}
+document.getElementById("grade").addEventListener("click", grade);
+document.getElementById("reset").addEventListener("click", () => location.reload());
+</script>
+</body>
+</html>

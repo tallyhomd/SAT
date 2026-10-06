@@ -1,1 +1,1 @@
-window.DAILY = {"note":"full bank follows in the committed file"};
+window.DAILY={"2026-10-05":[{"skill":"Comma splice","stem":"The trail was closed BLANK hikers ignored the sign and kept going.","choices":[["closed, hikers","Comma splice."],["closed; hikers","Correct."],["closed but hikers","Missing comma before but."],["closed: hikers","Colon does not explain the closure."]],"answer":1}]};

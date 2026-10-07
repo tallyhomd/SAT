@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SAT Conventions — Punctuation — Oct 5, 2026</title>
+<title>SAT Punctuation — October 5, 2026</title>
 <style>
   :root { --ink:#1c2430; --muted:#5c6778; --line:#d7dee6; --paper:#f6f4ef; --card:#fff; --accent:#1f4e79; --ok:#1b7f4e; --bad:#a33b32; }
   * { box-sizing: border-box; }
@@ -19,7 +19,6 @@
   .q h2 { font-size:1rem; margin:0 0 8px; }
   .blank { font-weight:700; }
   label.choice { display:block; border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin:0 0 8px; cursor:pointer; }
-  label.choice:hover { border-color:var(--accent); }
   label.choice input { margin-right:8px; }
   button { background:var(--accent); color:#fff; border:0; border-radius:8px; padding:12px 18px; font:600 1rem/1 sans-serif; cursor:pointer; }
   button.secondary { background:#fff; color:var(--accent); border:1px solid var(--accent); }
@@ -35,28 +34,28 @@
 <body>
 <header>
   <h1>SAT Standard English Conventions</h1>
-  <p>Punctuation daily set. October 5, 2026. 10 questions. 12 minutes. Predict the punctuation before you look at the choices.</p>
+  <p>Punctuation quiz, day 1. October 5, 2026. 10 questions. 12 minutes. The choice fills only BLANK. It does not repeat the word already printed before the blank.</p>
 </header>
 <main>
   <div class="bar"><div>Boundaries only. One legal join.</div><div class="timer" id="timer">12:00</div></div>
-  <div class="method"><strong>Method.</strong> Split at BLANK. A complete sentence has a subject, a verb, and a complete thought. Two completes need a period, a semicolon, or a comma plus FANBOYS (for, and, nor, but, or, yet, so). A colon only follows a complete sentence. However, therefore, and thus are not FANBOYS.</div>
+  <div class="method"><strong>Method.</strong> Split at BLANK. Two completes need a period, a semicolon, or a comma plus FANBOYS. A colon only follows a complete sentence. However, therefore, and thus are not FANBOYS.</div>
   <form id="quiz"></form>
   <div class="actions"><button type="button" id="grade">Check answers</button><button type="button" class="secondary" id="reset">Reset</button></div>
   <div id="result" hidden></div>
-  <footer>Practice set for Evan. Not an official College Board item.</footer>
+  <footer>Practice set for October 5. Not an official College Board item.</footer>
 </main>
 <script>
 const questions = [
-  { skill:"Comma splice", stem:"The trail was closed BLANK hikers ignored the sign and kept going.", choices:[["closed, hikers","Comma splice. Two complete sentences cannot be joined by a comma alone."],["closed; hikers","Correct. Both sides are complete, so a semicolon is a legal join."],["closed but hikers","Missing the comma. FANBOYS needs a comma: closed, but hikers."],["closed: hikers","A colon would mean the second clause explains the first. Ignoring the sign does not explain the closure."]], answer:1 },
-  { skill:"Comma plus FANBOYS", stem:"The river rose overnight BLANK the bridge stayed open until noon.", choices:[["overnight but the","Two complete sentences joined by but need a comma before but."],["overnight, but the","Correct. Comma plus but joins two independent clauses."],["overnight; but the","Do not use a semicolon and a FANBOYS word together."],["overnight: but the","A colon does not take but, and this second clause is a contrast, not an explanation."]], answer:1 },
-  { skill:"However is not FANBOYS", stem:"The data were incomplete BLANK the pattern was already clear.", choices:[["incomplete, however, the","Still a comma splice. However is not a FANBOYS word."],["incomplete; however, the","Correct. Use a semicolon before however, then a comma after it."],["incomplete however the","Run-on. Two complete sentences with no legal join."],["incomplete, however the","Comma splice, and the comma after however is missing."]], answer:1 },
-  { skill:"Colon after a verb", stem:"The kit included BLANK rope, a lamp, and matches.", choices:[["included: rope","A colon cannot split a verb from its objects. The lead-in is not complete."],["included rope","Correct. No extra punctuation between the verb and the list."],["included; rope","A semicolon needs a complete sentence on each side. A list is not a sentence."],["included, rope,","Those commas break the list and do not fix the sentence."]], answer:1 },
-  { skill:"Colon after a complete sentence", stem:"She had one remaining task BLANK secure the samples before sunset.", choices:[["task secure","The explanation of the task needs a mark that introduces it."],["task, secure","A comma does not introduce an explanation here."],["task: secure","Correct. The first side is complete. The colon points to what the task is."],["task; secure","The words after the blank are not a complete sentence, so a semicolon is illegal."]], answer:2 },
-  { skill:"Nonessential which", stem:"The engine BLANK failed on the first test.", choices:[["engine which was rebuilt last spring failed","A which clause is extra information and needs commas on both sides."],["engine, which was rebuilt last spring, failed","Correct. The which clause can be deleted, so a pair of commas sets it off."],["engine, which was rebuilt last spring failed","Opens the aside but never closes it."],["engine which was rebuilt last spring, failed","The comma is in the wrong place and splits the subject from the verb."]], answer:1 },
-  { skill:"Essential that", stem:"The report BLANK changed the final vote.", choices:[["report, that the committee released, changed","Do not set off an essential that clause with commas."],["report that the committee released changed","Correct. Essential information stays attached, with no commas."],["report; that the committee released, changed","A semicolon would leave a fragment after it."],["report: that the committee released changed","A colon does not belong between a noun and the clause that identifies it."]], answer:1 },
-  { skill:"Introductory comma", stem:"After the storm BLANK the road reopened to traffic.", choices:[["storm the","An introductory phrase needs a comma before the main clause."],["storm, the","Correct. After the storm is an opener, not a complete sentence."],["storm; the","The left side is not complete, so a semicolon is illegal."],["storm: the","A colon must follow a complete sentence. After the storm is only a phrase."]], answer:1 },
-  { skill:"Subject and verb", stem:"The collection of rare maps BLANK stored in a climate-controlled vault.", choices:[["maps, is","Do not put a comma between the subject and its verb."],["maps is","Correct. The subject is collection. No comma, and the verb stays singular."],["maps; is","A semicolon cannot sit between a subject and its verb."],["maps: is","A colon cannot sit between a subject and its verb."]], answer:1 },
-  { skill:"Phrase, not a second sentence", stem:"The curator smiled BLANK arranging the new exhibit by color.", choices:[["smiled; arranging","The words after the blank are not a complete sentence."],["smiled, arranging","Correct. Arranging is an add-on phrase, so a comma attaches it."],["smiled. Arranging","A period would leave Arranging the new exhibit by color as a fragment."],["smiled: arranging","A colon is for a list or explanation. This phrase only adds how she worked."]], answer:1 }
+  { skill:"Comma splice", stem:"The trail was closed BLANK hikers ignored the sign and kept going.", choices:[[", hikers","Comma splice."],["; hikers","Correct. Both sides are complete."],["but hikers","Missing the comma before but."],[": hikers","Ignoring the sign does not explain the closure."]], answer:1 },
+  { skill:"Comma plus FANBOYS", stem:"The river rose overnight BLANK the bridge stayed open until noon.", choices:[["but the","But needs a comma here."],[", but the","Correct."],["; but the","Do not pair a semicolon with but."],[": but the","A colon does not take but."]], answer:1 },
+  { skill:"However is not FANBOYS", stem:"The data were incomplete BLANK the pattern was already clear.", choices:[[", however, the","Still a comma splice."],["; however, the","Correct."],["however the","Run-on."],[", however the","Comma splice, and the comma after however is missing."]], answer:1 },
+  { skill:"Colon after a verb", stem:"The kit included BLANK rope, a lamp, and matches.", choices:[[": rope","A colon cannot split a verb from its objects."],["rope","Correct."],["; rope","The list is not a complete sentence."],[", rope,","Those commas break the list."]], answer:1 },
+  { skill:"Colon after a complete sentence", stem:"She had one remaining task BLANK secure the samples before sunset.", choices:[["secure","The task needs an introducing mark."],[", secure","A comma does not introduce this explanation."],[": secure","Correct. The first side is complete."],["; secure","The right side is not a complete sentence."]], answer:2 },
+  { skill:"Nonessential which", stem:"The engine BLANK failed on the first test.", choices:[["which was rebuilt last spring failed","The which clause needs commas on both sides."],[", which was rebuilt last spring, failed","Correct."],[", which was rebuilt last spring failed","The aside is never closed."],["which was rebuilt last spring, failed","The comma splits the subject from the verb."]], answer:1 },
+  { skill:"Essential that", stem:"The report BLANK changed the final vote.", choices:[[", that the committee released, changed","Do not set off an essential that clause."],["that the committee released changed","Correct."],["; that the committee released, changed","A semicolon would leave a fragment."],[": that the committee released changed","A colon does not identify a noun."]], answer:1 },
+  { skill:"Introductory comma", stem:"After the storm BLANK the road reopened to traffic.", choices:[["the","An introductory phrase needs a comma."],[", the","Correct."],["; the","The left side is not a complete sentence."],[": the","A colon must follow a complete sentence."]], answer:1 },
+  { skill:"Subject and verb", stem:"The collection of rare maps BLANK stored in a climate-controlled vault.", choices:[[", is","Do not put a comma between the subject and its verb."],["is","Correct. The subject is collection."],["; is","A semicolon cannot sit before the verb."],[": is","A colon cannot sit before the verb."]], answer:1 },
+  { skill:"Phrase, not a second sentence", stem:"The curator smiled BLANK arranging the new exhibit by color.", choices:[["; arranging","The right side is not a complete sentence."],[", arranging","Correct."],[". Arranging","A period would leave a fragment."],[": arranging","This phrase is not a list or an explanation."]], answer:1 }
 ];
 const form = document.getElementById("quiz");
 questions.forEach((q, i) => {
@@ -89,7 +88,7 @@ function grade() {
   });
   const box = document.getElementById("result");
   box.hidden = false;
-  box.innerHTML = `<p class="score">${correct} / ${questions.length}</p><p>For each miss, write: two completes or not, which join you bought, and whether it was a comma splice, a colon after a verb, or however treated as FANBOYS.</p>`;
+  box.innerHTML = `<p class="score">${correct} / ${questions.length}</p><p>For each miss, write: two completes or not, and which illegal join you bought.</p>`;
 }
 document.getElementById("grade").addEventListener("click", grade);
 document.getElementById("reset").addEventListener("click", () => location.reload());

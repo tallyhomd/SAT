@@ -19,7 +19,6 @@
   .q h2 { font-size:1rem; margin:0 0 8px; }
   .blank { font-weight:700; }
   label.choice { display:block; border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin:0 0 8px; cursor:pointer; }
-  label.choice:hover { border-color:var(--accent); }
   label.choice input { margin-right:8px; }
   button { background:var(--accent); color:#fff; border:0; border-radius:8px; padding:12px 18px; font:600 1rem/1 sans-serif; cursor:pointer; }
   button.secondary { background:#fff; color:var(--accent); border:1px solid var(--accent); }
@@ -35,11 +34,11 @@
 <body>
 <header>
   <h1>SAT Standard English Conventions</h1>
-  <p>Punctuation quiz, day 2. October 6, 2026. 10 questions. 12 minutes. Predict the punctuation before you look at the choices.</p>
+  <p>Punctuation quiz, day 2. October 6, 2026. 10 questions. 12 minutes. The choice fills only BLANK. It does not repeat the word already printed before the blank.</p>
 </header>
 <main>
   <div class="bar"><div>Boundaries only. One legal join.</div><div class="timer" id="timer">12:00</div></div>
-  <div class="method"><strong>Method.</strong> Split at BLANK. A complete sentence has a subject, a verb, and a complete thought. Two completes need a period, a semicolon, or a comma plus FANBOYS (for, and, nor, but, or, yet, so). A colon only follows a complete sentence. However, therefore, and thus are not FANBOYS.</div>
+  <div class="method"><strong>Method.</strong> Split at BLANK. Two completes need a period, a semicolon, or a comma plus FANBOYS. A colon only follows a complete sentence. However, therefore, and thus are not FANBOYS.</div>
   <form id="quiz"></form>
   <div class="actions"><button type="button" id="grade">Check answers</button><button type="button" class="secondary" id="reset">Reset</button></div>
   <div id="result" hidden></div>
@@ -47,16 +46,16 @@
 </main>
 <script>
 const questions = [
-  { skill:"Comma splice", stem:"The concert ended BLANK the crowd stayed in their seats.", choices:[["ended, the","Comma splice. Two complete sentences cannot be joined by a comma alone."],["ended; the","Correct. Both sides are complete, so a semicolon is a legal join."],["ended the","Run-on. There is no join between the two sentences."],["ended: the","Staying in their seats does not explain why the concert ended."]], answer:1 },
-  { skill:"Comma plus FANBOYS", stem:"The recipe looked easy BLANK the sauce still separated.", choices:[["easy but the","But needs a comma when it joins two complete sentences."],["easy, but the","Correct. Comma plus but is a legal join."],["easy; but the","Do not pair a semicolon with but."],["easy: but the","A colon does not take but."]], answer:1 },
-  { skill:"Therefore is not FANBOYS", stem:"The first sample failed BLANK the lab ran the test again.", choices:[["failed, therefore, the","Therefore is not a FANBOYS word, so a comma still creates a splice."],["failed; therefore, the","Correct. Use a semicolon before therefore and a comma after it."],["failed therefore the","Run-on. Two complete sentences need a legal join."],["failed, therefore the","Comma splice, and the comma after therefore is missing."]], answer:1 },
-  { skill:"Colon after a complete sentence", stem:"Her goal was narrow BLANK finish the draft before dawn.", choices:[["narrow finish","The goal needs a mark that introduces it."],["narrow, finish","A comma does not introduce this explanation."],["narrow: finish","Correct. Her goal was narrow is complete. The colon points to the goal."],["narrow; finish","Finish the draft before dawn is not a complete sentence."]], answer:2 },
-  { skill:"Colon after a verb", stem:"The box contained BLANK nails, wire, and a spare hinge.", choices:[["contained: nails","A colon cannot split a verb from its objects."],["contained nails","Correct. No extra punctuation belongs between the verb and the list."],["contained; nails","The list is not a complete sentence, so a semicolon is illegal."],["contained, nails,","Those commas break the list."]], answer:1 },
-  { skill:"Nonessential which", stem:"The telescope BLANK needs a new lens.", choices:[["telescope which sits on the roof needs","A which clause is extra and needs commas on both sides."],["telescope, which sits on the roof, needs","Correct. The which clause can be deleted."],["telescope, which sits on the roof needs","The aside is opened and never closed."],["telescope which sits on the roof, needs","The comma splits the subject from the verb."]], answer:1 },
-  { skill:"Essential that", stem:"The bus BLANK leaves at 6:40.", choices:[["bus, that stops at the library, leaves","Do not set off an essential that clause with commas."],["bus that stops at the library leaves","Correct. The clause identifies which bus."],["bus; that stops at the library leaves","A semicolon would leave a fragment."],["bus: that stops at the library, leaves","A colon does not identify a noun."]], answer:1 },
-  { skill:"Introductory comma", stem:"Until the rain stopped BLANK the crew waited under the awning.", choices:[["stopped the","An introductory clause needs a comma."],["stopped, the","Correct. Until the rain stopped is not a complete sentence."],["stopped; the","The left side is dependent, so a semicolon is illegal."],["stopped: the","A colon must follow a complete sentence."]], answer:1 },
-  { skill:"Subject and verb", stem:"The leader of the two crews BLANK already on the dock.", choices:[["crews, was","Do not put a comma between the subject and its verb."],["crews was","Correct. The subject is leader."],["crews; was","A semicolon cannot sit between a subject and its verb."],["crews: was","A colon cannot sit between a subject and its verb."]], answer:1 },
-  { skill:"Phrase, not a second sentence", stem:"The pilot nodded BLANK checking the fuel gauge again.", choices:[["nodded; checking","Checking the fuel gauge again is not a complete sentence."],["nodded, checking","Correct. The phrase attaches with a comma."],["nodded. Checking","A period would leave a fragment."],["nodded: checking","This phrase is not a list or an explanation for a colon."]], answer:1 }
+  { skill:"Comma splice", stem:"The concert ended BLANK the crowd stayed in their seats.", choices:[[", the","Comma splice."],["; the","Correct. Both sides are complete."],["the","Run-on. No join."],[": the","Staying does not explain why the concert ended."]], answer:1 },
+  { skill:"Comma plus FANBOYS", stem:"The recipe looked easy BLANK the sauce still separated.", choices:[["but the","But needs a comma here."],[", but the","Correct."],["; but the","Do not pair a semicolon with but."],[": but the","A colon does not take but."]], answer:1 },
+  { skill:"Therefore is not FANBOYS", stem:"The first sample failed BLANK the lab ran the test again.", choices:[[", therefore, the","Still a comma splice. Therefore is not FANBOYS."],["; therefore, the","Correct."],["therefore the","Run-on."],[", therefore the","Comma splice, and the comma after therefore is missing."]], answer:1 },
+  { skill:"Colon after a complete sentence", stem:"Her goal was narrow BLANK finish the draft before dawn.", choices:[["finish","The goal needs an introducing mark."],[", finish","A comma does not introduce this explanation."],[": finish","Correct. The first side is complete."],["; finish","The right side is not a complete sentence."]], answer:2 },
+  { skill:"Colon after a verb", stem:"The box contained BLANK nails, wire, and a spare hinge.", choices:[[": nails","A colon cannot split a verb from its objects."],["nails","Correct."],["; nails","The list is not a complete sentence."],[", nails,","Those commas break the list."]], answer:1 },
+  { skill:"Nonessential which", stem:"The telescope BLANK needs a new lens.", choices:[["which sits on the roof needs","The which clause needs commas on both sides."],[", which sits on the roof, needs","Correct."],[", which sits on the roof needs","The aside is never closed."],["which sits on the roof, needs","The comma splits the subject from the verb."]], answer:1 },
+  { skill:"Essential that", stem:"The bus BLANK leaves at 6:40.", choices:[[", that stops at the library, leaves","Do not set off an essential that clause."],["that stops at the library leaves","Correct. The clause identifies which bus."],["; that stops at the library leaves","A semicolon would leave a fragment."],[": that stops at the library, leaves","A colon does not identify a noun."]], answer:1 },
+  { skill:"Introductory comma", stem:"Until the rain stopped BLANK the crew waited under the awning.", choices:[["the","An introductory clause needs a comma."],[", the","Correct."],["; the","The left side is not a complete sentence."],[": the","A colon must follow a complete sentence."]], answer:1 },
+  { skill:"Subject and verb", stem:"The leader of the two crews BLANK already on the dock.", choices:[[", was","Do not put a comma between the subject and its verb."],["was","Correct. The subject is leader."],["; was","A semicolon cannot sit before the verb."],[": was","A colon cannot sit before the verb."]], answer:1 },
+  { skill:"Phrase, not a second sentence", stem:"The pilot nodded BLANK checking the fuel gauge again.", choices:[["; checking","The right side is not a complete sentence."],[", checking","Correct."],[". Checking","A period would leave a fragment."],[": checking","This phrase is not a list or an explanation."]], answer:1 }
 ];
 const form = document.getElementById("quiz");
 questions.forEach((q, i) => {
